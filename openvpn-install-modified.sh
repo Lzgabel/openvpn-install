@@ -6,9 +6,9 @@
 
 # Create vpn file store directory
 ovpn_dir=~/ovpn
-
+echo ${ovpn_dir}
 if [[ ! -d $ovpn_dir ]]; then
-	mkdir $ovpn_dir
+    mkdir $ovpn_dir
 fi
 
 # Detect Debian users running the script with "sh" instead of bash
@@ -71,7 +71,7 @@ if [[ -e /etc/openvpn/server.conf ]]; then
         echo "   4) Exit"
         read -p "Select an option [1-4]: " option
         case $option in
-            1) 
+            1)
             echo
             echo "Tell me a name for the client certificate."
             echo "Please, use one word only, no special characters."
@@ -115,7 +115,8 @@ if [[ -e /etc/openvpn/server.conf ]]; then
                 cp /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn/crl.pem
                 # CRL is read with each client connection, when OpenVPN is dropped to nobody
                 chown nobody:$GROUPNAME /etc/openvpn/crl.pem
-                rm -f ${ovpn_dir}/$CLIENT.ovpn
+		rm -f ${ovpn_dir}/$CLIENT.ovpn
+
                 echo
                 echo "Certificate for client $CLIENT revoked!"
             else
@@ -124,7 +125,7 @@ if [[ -e /etc/openvpn/server.conf ]]; then
             fi
             exit
             ;;
-            3) 
+            3)
             echo
             read -p "Do you really want to remove OpenVPN? [y/N]: " -e REMOVE
             if [[ "$REMOVE" = 'y' || "$REMOVE" = 'Y' ]]; then
@@ -198,10 +199,10 @@ else
     echo "   2) TCP"
     read -p "Protocol [1-2]: " -e -i 1 PROTOCOL
     case $PROTOCOL in
-        1) 
+        1)
         PROTOCOL=udp
         ;;
-        2) 
+        2)
         PROTOCOL=tcp
         ;;
     esac
